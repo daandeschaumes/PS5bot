@@ -1,7 +1,7 @@
 import * as puppeteer from 'puppeteer'
 import * as notifier from 'node-notifier'
 
-export const scrapeDREAMLAND = async () => {
+export const scrapeAMAZON = async () => {
   // const {
   //   email,
   //   phoneNumber,
@@ -38,7 +38,7 @@ export const scrapeDREAMLAND = async () => {
     let URL
     // URL = 'https://www.dreamland.be/e/nl/dl/playstation-5-console-standard-wit-extra-ps5-dualsense-controller-125024#'
     URL =
-      'https://www.dreamland.be/e/nl/dl/playstation-5-console-standard-wit-extra-ps5-dualsense-controller-125024'
+      'https://www.amazon.de/-/nl/dp/B08H93ZRK9/'
 
     await page.goto(URL, { waitUntil: 'load', timeout: 0 })
 
@@ -50,7 +50,7 @@ export const scrapeDREAMLAND = async () => {
     // ]
 
     // await page.setCookie(...cookies)
-    await (await page.$('button[id="onetrust-accept-btn-handler"]')).click()
+    // await (await page.$('button[id="onetrust-accept-btn-handler"]')).click()
     // await page.reload()
     // await page.goto(
     //   'https://www.walmart.com/ip/Sony-PlayStation-5-DualSense-Wireless-Controller/615549727'
@@ -67,21 +67,15 @@ export const scrapeDREAMLAND = async () => {
     // await page.setCookie(...cookies)
 
     await page.waitForTimeout(4000)
-    const addToCartButton = await page.$('a[id="add2CartBtn"]')
+    const addToCartButton = await page.$('a[id="add-to-cart-button-ubb"]')
 
     // await page.reload()
     while (true) {
       try {
-        // notifier.notify({
-        //     title: 'DREAMLAND',
-        //     message: 'Ready to place order!',
-        //     sound: true
-        //   })
-        console.log('DREAMLAND: keep looking')
-        await page.waitForSelector('div[id="add2CartBtn"]', {
-          timeout: 10000
+        console.log('AMAZON: keep looking')
+        await page.waitForSelector('a[id="add-to-cart-button-ubb"]', {
+          timeout: 1000
         })
-       
         break
       } catch (error) {
         await page.reload()
@@ -148,7 +142,7 @@ export const scrapeDREAMLAND = async () => {
     // await page.keyboard.press('Enter')
 
     notifier.notify({
-      title: 'DREAMLAND',
+      title: 'AMAZON',
       message: 'Ready to place order!',
       sound: true
     })
